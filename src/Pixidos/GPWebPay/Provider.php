@@ -16,6 +16,8 @@ use Pixidos\GPWebPay\Intefaces\IProvider;
 use Pixidos\GPWebPay\Intefaces\IRequest;
 use Pixidos\GPWebPay\Intefaces\IResponse;
 use Pixidos\GPWebPay\Intefaces\ISigner;
+use Pixidos\GPWebPay\Intefaces\ISignerFactory;
+
 
 /**
  * Class Provider
@@ -28,6 +30,8 @@ class Provider implements IProvider
 	/** @var Settings $settings */
 	private $settings;
 
+	/** @var ISignerFactory */
+	private $signerFactory;
 
 	/** @var null|ISigner */
 	private $signer;
@@ -37,12 +41,13 @@ class Provider implements IProvider
 
 
 	/**
-	 * Provider constructor.
-	 * @param Settings $settings
+	 * @param Settings       $settings
+	 * @param ISignerFactory $signerFactory
 	 */
-	public function __construct(Settings $settings)
+	public function __construct(Settings $settings, ISignerFactory $signerFactory)
 	{
 		$this->settings = $settings;
+		$this->signerFactory = $signerFactory;
 	}
 
 
@@ -60,11 +65,7 @@ class Provider implements IProvider
 			$this->settings->getDepositFlag()
 		);
 
-		$this->signer = new Signer(
-			$this->settings->getPrivateKey($operation->getGatewayKey()),
-			$this->settings->getPrivateKeyPassword($operation->getGatewayKey()),
-			$this->settings->getPublicKey()
-		);
+		$this->signer = $this->signerFactory->create($operation->getGatewayKey());
 
 		return $this;
 	}
@@ -138,12 +139,7 @@ class Provider implements IProvider
 	{
 		// verify digest & digest1
 		try {
-			$this->signer = new Signer(
-				$this->settings->getPrivateKey($response->getGatewayKey()),
-				$this->settings->getPrivateKeyPassword($response->getGatewayKey()),
-				$this->settings->getPublicKey()
-			);
-
+			$this->signer = $this->signerFactory->create($response->getGatewayKey());
 			$responseParams = $response->getParams();
 			$this->signer->verify($responseParams, $response->getDigest());
 			$responseParams['MERCHANTNUMBER'] = $this->settings->getMerchantNumber($response->getGatewayKey());

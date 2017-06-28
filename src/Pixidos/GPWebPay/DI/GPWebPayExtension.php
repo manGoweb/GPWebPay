@@ -53,8 +53,13 @@ class GPWebPayExtension extends Nette\DI\CompilerExtension
                 'gatewayKey' => $config['gatewayKey']
             ));
 
+	    $builder->addDefinition($this->prefix('signerFactory'))
+		    ->setClass('Pixidos\GPWebPay\Intefaces\ISignerFactory')
+		    ->setFactory('Pixidos\GPWebPay\SignerFactory', array($this->prefix('@settings')));
+
         $builder->addDefinition($this->prefix('provider'))
-            ->setClass('Pixidos\GPWebPay\Provider', array($this->prefix('@settings')));
+            ->setClass('Pixidos\GPWebPay\Intefaces\IProvider')
+            ->setFactory('Pixidos\GPWebPay\Provider', array($this->prefix('@settings'), $this->prefix('@signerFactory')));
 
         $builder->addDefinition($this->prefix('controlFactory'))
             ->setClass('Pixidos\GPWebPay\Components\GPWebPayControlFactory', array($this->prefix('@provider')));
