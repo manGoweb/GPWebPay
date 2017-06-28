@@ -25,20 +25,16 @@ use Pixidos\GPWebPay\Intefaces\ISigner;
 class Provider implements IProvider
 {
 
-	/**
-	 * @var Settings $settings
-	 */
+	/** @var Settings $settings */
 	private $settings;
 
-	/**
-	 * @var  IRequest $request
-	 */
+
+	/** @var null|ISigner */
+	private $signer;
+
+	/** @var null|IRequest $request */
 	private $request;
 
-	/**
-	 * @var  ISigner $signer
-	 */
-	private $signer;
 
 	/**
 	 * Provider constructor.
@@ -60,7 +56,7 @@ class Provider implements IProvider
 	{
 		$this->request = new Request(
 			$operation,
-			$this->settings->getMerchantNumber($operation->getGatewayKey()),
+			(int) $this->settings->getMerchantNumber($operation->getGatewayKey()),
 			$this->settings->getDepositFlag()
 		);
 

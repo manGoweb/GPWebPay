@@ -20,35 +20,22 @@ use Pixidos\GPWebPay\Intefaces\IRequest;
 class Request implements IRequest
 {
 
-	/**
-	 * @var  Operation $operation
-	 */
+	/** @var IOperation $operation */
 	private $operation;
 
-	/**
-	 * @var string $url
-	 */
+	/** @var string $url */
 	private $url;
 
-	/**
-	 * @var  int $merchantNumber
-	 */
+	/** @var int $merchantNumber */
 	private $merchantNumber;
 
-	/**
-	 * @var  int $depositFlag
-	 */
+	/** @var int $depositFlag */
 	private $depositFlag;
 
-	/**
-	 * @var array $params
-	 */
+	/** @var array $params */
 	private $params;
 
-	/**
-	 *
-	 * @var array $digestParamsKeys
-	 */
+	/** @var array $digestParamsKeys */
 	private static $digestParamsKeys = array(
 		'MERCHANTNUMBER',
 		'OPERATION',
@@ -72,8 +59,8 @@ class Request implements IRequest
 
 	/**
 	 * @param IOperation $operation
-	 * @param $merchantNumber
-	 * @param $depositFlag
+	 * @param int $merchantNumber
+	 * @param int $depositFlag
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(IOperation $operation, $merchantNumber, $depositFlag)

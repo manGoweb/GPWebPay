@@ -35,8 +35,8 @@ class Response implements IResponse
 	 * @param string $ordernumber
 	 * @param string $merordernum
 	 * @param string $md
-	 * @param int $prcode
-	 * @param int $srcode
+	 * @param int|string $prcode
+	 * @param int|string $srcode
 	 * @param string $resulttext
 	 * @param string $digest
 	 * @param string $digest1
@@ -106,7 +106,7 @@ class Response implements IResponse
 	}
 
 	/**
-	 * @return string | null
+	 * @return null|string
 	 */
 	public function getMerOrderNumber()
 	{
@@ -114,7 +114,7 @@ class Response implements IResponse
 	}
 
 	/**
-	 * @return string| null
+	 * @return null|string
 	 */
 	public function getMd()
 	{
@@ -164,7 +164,7 @@ class Response implements IResponse
 	}
 
 	/**
-	 * @return string | null
+	 * @return null|string
 	 */
 	public function getUserParam1()
 	{

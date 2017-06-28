@@ -33,7 +33,7 @@ interface IOperation
 	public function getCurrency();
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getResponseUrl();
 
@@ -45,7 +45,7 @@ interface IOperation
 
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getMd();
 
@@ -58,7 +58,7 @@ interface IOperation
 
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getDescription();
 

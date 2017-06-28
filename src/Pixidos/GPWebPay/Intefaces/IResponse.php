@@ -32,12 +32,12 @@ interface IResponse
 	public function getDigest1();
 
 	/**
-	 * @return string | null
+	 * @return string|null
 	 */
 	public function getMerOrderNumber();
 
 	/**
-	 * @return string| null
+	 * @return string|null
 	 */
 	public function getMd();
 
@@ -67,9 +67,12 @@ interface IResponse
 	public function getResultText();
 
 	/**
-	 * @return string | null
+	 * @return string|null
 	 */
 	public function getUserParam1();
 
+	/**
+	 * @param string $userParam1
+	 */
 	public function setUserParam1($userParam1);
 }

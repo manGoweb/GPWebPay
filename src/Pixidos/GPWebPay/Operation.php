@@ -8,8 +8,9 @@
 
 namespace Pixidos\GPWebPay;
 
-use Pixidos\GPWebPay\Intefaces\IOperation;
 use Pixidos\GPWebPay\Exceptions\InvalidArgumentException;
+use Pixidos\GPWebPay\Intefaces\IOperation;
+
 
 /**
  * Class Operation
@@ -33,76 +34,52 @@ class Operation implements IOperation
 		self::PAYMENT_PLATBA24,
 	];
 
-	/**
-	 * @var int $orderNumber
-	 */
+	/** @var int $orderNumber */
 	private $orderNumber;
 
-	/**
-	 * @var int $amount
-	 */
+	/** @var int $amount */
 	private $amount;
 
-	/**
-	 * @var int $currency
-	 */
+	/** @var int $currency */
 	private $currency;
 
-	/**
-	 * @var  string $description
-	 */
+	/** @var string $description */
 	private $description;
-	/**
-	 * @var  string $md
-	 */
+
+	/** @var string $md */
 	private $md;
-	/**
-	 * @var  int $merordernum
-	 */
+
+	/** @var int $merordernum */
 	private $merordernum;
-	/**
-	 * @var null $responseUrl
-	 */
+
+	/** @var string|null $responseUrl */
 	private $responseUrl;
 
-	/**
-	 * @var string $gatewayKey
-	 */
+	/** @var null|string $gatewayKey */
 	private $gatewayKey = NULL;
 
-	/**
-	 * @var string $lang
-	 */
+	/** @var string $lang */
 	private $lang;
 
-	/**
-	 * @var  string $userParam1
-	 */
+	/** @var null|string $userParam1 */
 	private $userParam1 = NULL;
-	/**
-	 * @var  string $payMethod
-	 */
+
+	/** @var null|string $payMethod */
 	private $payMethod = NULL;
-	/**
-	 * @var  string $disablePayMethod
-	 */
+
+	/** @var nulL|string $disablePayMethod */
 	private $disablePayMethod = NULL;
-	/**
-	 * @var  array $payMethods
-	 */
+
+	/** @var array $payMethods */
 	private $payMethods = [];
-	/**
-	 * @var  string $email
-	 */
+
+	/** @var null|string $email */
 	private $email = NULL;
-	/**
-	 * @var  string $referenceNumber
-	 */
+
+	/** @var null|string $referenceNumber */
 	private $referenceNumber = NULL;
 
-	/**
-	 * @var int fastPayId
-	 */
+	/** @var null|int fastPayId */
 	private $fastPayId = NULL;
 
 
@@ -111,8 +88,8 @@ class Operation implements IOperation
 	 * @param string $orderNumber max. length is 15
 	 * @param int $amount
 	 * @param int $currency max. length is 3
-	 * @param null $gatewayKey
-	 * @param null $responseUrl
+	 * @param string|null $gatewayKey
+	 * @param string|null $responseUrl
 	 * @param bool $converToPennies
 	 * @throws InvalidArgumentException
 	 */
@@ -139,7 +116,7 @@ class Operation implements IOperation
 	}
 
 	/**
-	 * @param int $orderNumber
+	 * @param  int|string $orderNumber
 	 * @throws InvalidArgumentException
 	 */
 	private function setOrderNumber($orderNumber)
@@ -150,11 +127,11 @@ class Operation implements IOperation
 		if (!is_numeric($orderNumber) || floor($orderNumber) != $orderNumber) {
 			throw new InvalidArgumentException('ORDERNUMBER must by type of numeric ' . gettype($orderNumber) . ' given');
 		}
-		$this->orderNumber = $orderNumber;
+		$this->orderNumber = (int) $orderNumber;
 	}
 
 	/**
-	 * @param int | float $amount
+	 * @param int|float $amount
 	 * @param bool $converToPennies
 	 * @return $this
 	 * @throws InvalidArgumentException
@@ -174,7 +151,7 @@ class Operation implements IOperation
 	}
 
 	/**
-	 * @param $currency
+	 * @param int $currency
 	 * @throws InvalidArgumentException
 	 */
 	private function setCurrency($currency)
@@ -211,7 +188,7 @@ class Operation implements IOperation
 	}
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getResponseUrl()
 	{
@@ -239,7 +216,7 @@ class Operation implements IOperation
 	}
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getMd()
 	{
@@ -253,7 +230,7 @@ class Operation implements IOperation
 	 */
 	public function setMd($md)
 	{
-		if ((strlen((string)$this->md) + strlen($md)) > 250) {
+		if ((strlen($this->md) + strlen($md)) > 250) {
 			throw new InvalidArgumentException('MD max. length is 250! ' . strlen($md) . ' given');
 		}
 
@@ -263,7 +240,7 @@ class Operation implements IOperation
 	}
 
 	/**
-	 * @return null | string
+	 * @return null|string
 	 */
 	public function getDescription()
 	{

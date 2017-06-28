@@ -24,4 +24,11 @@ interface IRequest
 	 */
 	public function getDigestParams();
 
+
+	/**
+	 * @param  string $digest
+	 * @return void
+	 */
+	public function setDigest($digest);
+
 }

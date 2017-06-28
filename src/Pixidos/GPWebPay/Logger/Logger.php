@@ -14,7 +14,7 @@ use Pixidos\GPWebPay\Exceptions\GPWebPayException;
  * @package Pixidos\GPWebPay\Logger
  * @author Ondra Votava <ondra.votava@pixidos.com>
  *
- * @method onMail($this)
+ * @method onMail($logger)
  */
 class Logger implements ILogger
 {

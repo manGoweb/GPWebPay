@@ -16,40 +16,36 @@ namespace Pixidos\GPWebPay;
 
 class Settings
 {
-	/** @var string */
+	/** @var array */
 	private $privateKey;
 
-	/** @var string */
+	/** @var array */
 	private $privateKeyPassword;
 
 	/** @var string */
 	private $publicKey;
 
-	/**
-	 * @var  string $url
-	 */
+	/** @var string $url */
 	private $url;
-	/**
-	 * @var  string $merchantNumber
-	 */
+
+	/** @var array $merchantNumber */
 	private $merchantNumber;
 
-	/**
-	 * @var int $depositFlag
-	 */
+	/** @var int $depositFlag */
 	private $depositFlag;
 
+	/** @var string */
 	private $defaultGatewayKey;
 
+
 	/**
-	 * Settings constructor.
-	 * @param string $privateKey
-	 * @param string $privateKeyPassword
-	 * @param string $publicKey
-	 * @param string $url
-	 * @param string $merchantNumber
-	 * @param int $depositFlag
-	 * @param string $gatewayKey
+	 * @param string|array $privateKey
+	 * @param string|array $privateKeyPassword
+	 * @param string       $publicKey
+	 * @param string       $url
+	 * @param string|array $merchantNumber
+	 * @param int          $depositFlag
+	 * @param string       $gatewayKey
 	 */
 	public function __construct(
 		$privateKey,
@@ -61,17 +57,13 @@ class Settings
 		$gatewayKey
 	) {
 		if (! is_array($privateKey)) {
-			$key = $privateKey;
-			$privateKey = [];
-			$privateKey[$gatewayKey] = $key;
+			$privateKey = [$gatewayKey => $privateKey];
 		}
 
 		$this->privateKey = $privateKey;
 
 		if (! is_array($privateKeyPassword)) {
-			$pwd = $privateKeyPassword;
-			$privateKeyPassword = [];
-			$privateKeyPassword[$gatewayKey] = $pwd;
+			$privateKeyPassword = [$gatewayKey => $privateKeyPassword];
 		}
 
 		$this->privateKeyPassword = $privateKeyPassword;
@@ -80,9 +72,7 @@ class Settings
 		$this->url = $url;
 
 		if (! is_array($merchantNumber)) {
-			$merchant = $merchantNumber;
-			$merchantNumber = [];
-			$merchantNumber[$gatewayKey] = $merchant;
+			$merchantNumber = [$gatewayKey => $merchantNumber];
 		}
 
 		$this->merchantNumber = $merchantNumber;
@@ -100,7 +90,7 @@ class Settings
 	}
 
 	/**
-	 * @param null $gatewayKey
+	 * @param string|null $gatewayKey
 	 * @return string
 	 */
 	public function getMerchantNumber($gatewayKey = NULL)
@@ -112,7 +102,7 @@ class Settings
 	}
 
 	/**
-	 * @param null $gatewayKey
+	 * @param string|null $gatewayKey
 	 * @return string
 	 */
 	public function getPrivateKey($gatewayKey = NULL)
@@ -132,7 +122,7 @@ class Settings
 	}
 
 	/**
-	 * @param null $gatewayKey
+	 * @param string|null $gatewayKey
 	 * @return string
 	 */
 	public function getPrivateKeyPassword($gatewayKey = NULL)
