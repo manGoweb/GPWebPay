@@ -1,4 +1,4 @@
-
-tests/tmp/
-vendor/
-.idea/
+/.idea/
+/composer.lock
+/tests/tmp/
+/vendor/
