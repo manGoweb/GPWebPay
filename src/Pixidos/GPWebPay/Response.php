@@ -38,6 +38,7 @@ class Response implements IResponse
 	 * @param int|string $prcode
 	 * @param int|string $srcode
 	 * @param string $resulttext
+	 * @param null|string $expiry
 	 * @param string $digest
 	 * @param string $digest1
 	 * @param $gatewayKey
@@ -50,23 +51,33 @@ class Response implements IResponse
 		$prcode,
 		$srcode,
 		$resulttext,
+		$expiry,
 		$digest,
 		$digest1,
 		$gatewayKey
 	) {
 		$this->params['OPERATION'] = $operation;
 		$this->params['ORDERNUMBER'] = $ordernumber;
+
 		if ($merordernum !== NULL) {
 			$this->params['MERORDERNUM'] = $merordernum;
 		}
+
 		if ($md !== NULL) {
 			$this->params['MD'] = $md;
 		}
+
 		$this->params['PRCODE'] = (int)$prcode;
 		$this->params['SRCODE'] = (int)$srcode;
+
 		if ($resulttext !== NULL) {
 			$this->params['RESULTTEXT'] = $resulttext;
 		}
+
+		if ($expiry !== NULL) {
+			$this->params['EXPIRY'] = $expiry;
+		}
+
 		$this->digest = $digest;
 		$this->digest1 = $digest1;
 		$this->gatewayKey = $gatewayKey;
@@ -161,6 +172,14 @@ class Response implements IResponse
 	public function getResultText()
 	{
 		return isset($this->params['RESULTTEXT']) ? $this->params['RESULTTEXT'] : NULL;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getExpiry()
+	{
+		return isset($this->params['EXPIRY']) ? $this->params['EXPIRY'] : NULL;
 	}
 
 	/**

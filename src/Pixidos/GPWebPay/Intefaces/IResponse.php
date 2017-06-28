@@ -69,6 +69,11 @@ interface IResponse
 	/**
 	 * @return string|null
 	 */
+	public function getExpiry();
+
+	/**
+	 * @return string|null
+	 */
 	public function getUserParam1();
 
 	/**

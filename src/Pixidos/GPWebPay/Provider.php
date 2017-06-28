@@ -111,6 +111,7 @@ class Provider implements IProvider
 		$prcode = isset ($params ['PRCODE']) ? $params ['PRCODE'] : '';
 		$srcode = isset ($params ['SRCODE']) ? $params ['SRCODE'] : '';
 		$resulttext = isset ($params ['RESULTTEXT']) ? $params ['RESULTTEXT'] : NULL;
+		$expiry = isset ($params ['EXPIRY']) ? $params ['EXPIRY'] : NULL;
 		$digest = isset ($params ['DIGEST']) ? $params ['DIGEST'] : '';
 		$digest1 = isset ($params ['DIGEST1']) ? $params ['DIGEST1'] : '';
 
@@ -121,7 +122,7 @@ class Provider implements IProvider
 		} else {
 			$gatewayKey = $key[0];
 		}
-		$response = new Response($operation, $ordernumber, $merordernum, $md, $prcode, $srcode, $resulttext, $digest,
+		$response = new Response($operation, $ordernumber, $merordernum, $md, $prcode, $srcode, $resulttext, $expiry, $digest,
 			$digest1, $gatewayKey);
 		if (isset($params['USERPARAM1'])) {
 			$response->setUserParam1($params['USERPARAM1']);
